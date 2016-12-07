@@ -1,0 +1,63 @@
+{extends file="base_template.html"}
+
+{block name=body}
+<p>
+	<label>Select a destination country: </label>
+	<select>
+		{html_options options=$countries selected=$selectedCountry}
+	</select>
+</p>
+
+<p>
+	{html_checkboxes values=$countryKeys output=$countries selected=$selectedCountries separator='<br/>'}
+</p>
+
+<p>
+	<table width="100%" cellpadding="0" cellspacing="0">
+		<thead>
+			<tr>
+				<th width="18%" scope="col">NO.</th>
+				<th width="18%" scope="col">COURSE</th>
+				<th width="18%" scope="col">CREDIT</th>
+				<th width="18%" scope="col">SCORE</th>
+				<th width="18%" scope="col">COMMENT</th>
+			</tr>
+		</thead>	
+		<tbody>
+		{foreach $courses as $course}
+		<tr bgcolor="{cycle values='#FFA, #FFF'}">
+			<td>{$course@iteration}</td>
+			<td>{$course.name}</td>
+			<td>{$course.credit}</td>
+			<td>{$course.score}</td>
+			<td>
+				{if $course.score gte 50}
+					PASS
+				{else}
+					FAIL
+				{/if}
+	
+		
+			</td>
+		</tr>
+		{/foreach}
+			
+		</tbody>
+	</table>
+</p>
+
+<p>
+	<form>
+		<p>
+			<label>Flight Operator: </label>
+			<input type="text" id="company" name="company" value="{$flight->company}" />
+		</p>
+		<p>
+			<label>Route</label>
+
+			<input type="text" name="from" value="{$flight->from}" /> ->
+			<input type="text" name="to" value="{$flight->to}" />
+		</p>
+	</form>
+</p>
+{/block}
